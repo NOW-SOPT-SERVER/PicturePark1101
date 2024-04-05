@@ -4,8 +4,8 @@ import java.util.Arrays;
 import org.example.status.TypeException;
 
 public enum ProductType {
-  SAVINGS_ACCOUNT(0), // 예금
-  INSTALLMENT_SAVINGS_ACCOUNT(1); // 적금
+  SAVINGS_ACCOUNT(1), // 예금
+  INSTALLMENT_SAVINGS_ACCOUNT(2); // 적금
 
   private final int id;
 
