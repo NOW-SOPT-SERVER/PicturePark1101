@@ -2,16 +2,15 @@ package org.example.domain;
 
 import java.util.ArrayList;
 import java.util.List;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
 
+@Builder
+@Getter
+@Setter
 public class Customer extends Person{
 
-  private List<Acoount> acoountList = new ArrayList<>();;
+  private List<Account> accountList = new ArrayList<>();;
 
-  public List<Acoount> getAcoountList() {
-    return acoountList;
-  }
-
-  public void setAcoountList(List<Acoount> acoountList) {
-    this.acoountList = acoountList;
-  }
 }
