@@ -1,10 +1,14 @@
 package com.example.demo.service;
 
-import com.example.seminar.domain.Member;
-import com.example.seminar.repository.MemberRepository;
-import com.example.seminar.service.dto.MemberCreateDto;
-import com.example.seminar.service.dto.MemberFindDto;
+import com.example.demo.domain.Member;
+import com.example.demo.repository.MemberRepository;
+import com.example.demo.service.dto.MemberCreateDto;
+import com.example.demo.service.dto.MemberFindDto;
+import com.example.demo.service.dto.MemberListFindDto;
 import jakarta.persistence.EntityNotFoundException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -46,5 +50,13 @@ public class MemberService {
     Member member = memberRepository.findById(memberId).orElseThrow(() ->
         new EntityNotFoundException("ID에 해당하는 사용자가 존재하지 않습니다."));
     memberRepository.delete(member);
+  }
+
+  @Transactional(readOnly = true)
+  public MemberListFindDto findAllMember() {
+
+    List<MemberFindDto> members = memberRepository.findAll().stream().map(MemberFindDto::of).toList();
+    return MemberListFindDto.of(members);
+
   }
 }
