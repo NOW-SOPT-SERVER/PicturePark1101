@@ -1,9 +1,11 @@
 package com.example.demo.controller;
 
-import com.example.seminar.service.MemberService;
-import com.example.seminar.service.dto.MemberCreateDto;
-import com.example.seminar.service.dto.MemberFindDto;
+import com.example.demo.service.MemberService;
+import com.example.demo.service.dto.MemberCreateDto;
+import com.example.demo.service.dto.MemberFindDto;
+import com.example.demo.service.dto.MemberListFindDto;
 import java.net.URI;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -41,6 +43,11 @@ public class MemberController {
   ) {
     memberService.deleteMemberById(memberId);
     return (ResponseEntity) ResponseEntity.noContent().build();
+  }
+
+  @GetMapping("")
+  public ResponseEntity<MemberListFindDto> getAllMember() {
+    return ResponseEntity.ok(memberService.findAllMember());
   }
 
 }
