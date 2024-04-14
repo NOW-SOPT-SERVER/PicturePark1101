@@ -1,4 +1,4 @@
-package com.example.demo.service.dto;
+package com.example.demo.service.dto.response;
 
 
 import com.example.demo.domain.Member;

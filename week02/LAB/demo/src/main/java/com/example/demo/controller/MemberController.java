@@ -1,11 +1,10 @@
 package com.example.demo.controller;
 
 import com.example.demo.service.MemberService;
-import com.example.demo.service.dto.MemberCreateDto;
-import com.example.demo.service.dto.MemberFindDto;
-import com.example.demo.service.dto.MemberListFindDto;
+import com.example.demo.service.dto.request.MemberCreateDto;
+import com.example.demo.service.dto.response.MemberFindDto;
+import com.example.demo.service.dto.response.MemberListFindDto;
 import java.net.URI;
-import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;

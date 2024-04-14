@@ -2,13 +2,11 @@ package com.example.demo.service;
 
 import com.example.demo.domain.Member;
 import com.example.demo.repository.MemberRepository;
-import com.example.demo.service.dto.MemberCreateDto;
-import com.example.demo.service.dto.MemberFindDto;
-import com.example.demo.service.dto.MemberListFindDto;
+import com.example.demo.service.dto.request.MemberCreateDto;
+import com.example.demo.service.dto.response.MemberFindDto;
+import com.example.demo.service.dto.response.MemberListFindDto;
 import jakarta.persistence.EntityNotFoundException;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
