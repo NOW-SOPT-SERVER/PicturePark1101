@@ -63,7 +63,9 @@ out/
 atlassian-ide-plugin.xml
 
 # Cursive Clojure plugin
+.idea/*
 .idea/*.iml
+.idea/*.xml
 .idea/replstate.xml
 
 # SonarLint plugin
