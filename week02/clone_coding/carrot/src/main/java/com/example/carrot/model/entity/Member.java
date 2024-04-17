@@ -1,10 +1,15 @@
 package com.example.carrot.model.entity;
 
 import com.example.carrot.model.entity.common.BaseEntity;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import java.util.ArrayList;
+import java.util.List;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -23,8 +28,22 @@ public class Member extends BaseEntity {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
+  @Column(nullable = false)
   private String phone;
 
+  @Column(nullable = false)
   private String nickname;
+
+  // 상품
+  @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
+  private List<Product> productList = new ArrayList<>();
+
+  // 자주 쓰는 문구
+  @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
+  private List<FrequentlyUsedPhrases> frequentlyUsedPhrases = new ArrayList<>();
+
+  // 활동 지역
+  @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
+  private List<ActiveRegion> activeRegionList = new ArrayList<>();
 
 }

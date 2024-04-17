@@ -6,6 +6,9 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import java.util.ArrayList;
+import java.util.List;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -19,10 +22,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class Region extends BaseEntity {
 
-
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
   private String name;
+
+  // 단순히 우리나라 지역을 저장하는 DB라 ActiveRegion, Product와 양방향 매핑을 할 필요는 없을 것 같다.
 }
