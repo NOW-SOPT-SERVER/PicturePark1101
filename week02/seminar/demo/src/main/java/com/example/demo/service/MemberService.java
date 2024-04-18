@@ -1,9 +1,10 @@
 package com.example.demo.service;
 
-import com.example.seminar.domain.Member;
-import com.example.seminar.repository.MemberRepository;
-import com.example.seminar.service.dto.MemberCreateDto;
-import com.example.seminar.service.dto.MemberFindDto;
+
+import com.example.demo.domain.Member;
+import com.example.demo.repository.MemberRepository;
+import com.example.demo.service.dto.MemberCreateDto;
+import com.example.demo.service.dto.MemberFindDto;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

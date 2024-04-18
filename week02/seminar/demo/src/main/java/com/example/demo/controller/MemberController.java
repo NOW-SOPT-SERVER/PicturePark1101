@@ -1,8 +1,9 @@
 package com.example.demo.controller;
 
-import com.example.seminar.service.MemberService;
-import com.example.seminar.service.dto.MemberCreateDto;
-import com.example.seminar.service.dto.MemberFindDto;
+
+import com.example.demo.service.MemberService;
+import com.example.demo.service.dto.MemberCreateDto;
+import com.example.demo.service.dto.MemberFindDto;
 import java.net.URI;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
