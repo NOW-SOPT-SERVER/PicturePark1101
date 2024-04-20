@@ -41,7 +41,7 @@ public class MemberController {
       @PathVariable Long memberId
   ) {
     memberService.deleteMemberById(memberId);
-    return (ResponseEntity) ResponseEntity.noContent().build();
+    return ResponseEntity.noContent().build();
   }
 
 }
