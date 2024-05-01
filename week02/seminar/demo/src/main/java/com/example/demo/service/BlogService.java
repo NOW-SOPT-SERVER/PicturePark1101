@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @RequiredArgsConstructor
 public class BlogService {
+
   private final BlogRepository blogRepository;
   private final MemberService memberService;
 
@@ -24,7 +25,7 @@ public class BlogService {
     return blog.getId().toString();
   }
 
-  private Blog findById(Long blogId) {
+  public Blog findById(Long blogId) {
     return blogRepository.findById(blogId).orElseThrow(
         () -> new NotFoundException(ErrorMessage.BLOG_NOT_FOUND)
     );
@@ -35,5 +36,11 @@ public class BlogService {
     Blog blog = findById(blogId);
     blog.updateTitle(blogTitleUpdateRequest);
     //    blogRepository.save(blog); 이렇게 해도 됨.
+  }
+
+  public void validateOwner(Long requestMemberId, Long findMemberId) {
+    if (!requestMemberId.equals(findMemberId)) {
+      throw new NotFoundException(ErrorMessage.BLOG_UNAUTHORIZED);
+    }
   }
 }
