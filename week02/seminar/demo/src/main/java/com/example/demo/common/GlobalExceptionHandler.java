@@ -1,9 +1,8 @@
 package com.example.demo.common;
 
-import com.example.demo.common.dto.ErrorMessage;
 import com.example.demo.common.dto.ErrorResponse;
+import com.example.demo.exception.CustomValidateException;
 import com.example.demo.exception.NotFoundException;
-import jakarta.persistence.EntityNotFoundException;
 import java.util.Objects;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,6 +18,11 @@ public class GlobalExceptionHandler {
   }
   @ExceptionHandler(NotFoundException.class)
   protected ResponseEntity<ErrorResponse> handleNotFoundException(NotFoundException e) {
+    return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ErrorResponse.of(e.getErrorMessage()));
+  }
+
+  @ExceptionHandler(CustomValidateException.class)
+  protected ResponseEntity<ErrorResponse> handleNotFoundException(CustomValidateException e) {
     return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ErrorResponse.of(e.getErrorMessage()));
   }
 
