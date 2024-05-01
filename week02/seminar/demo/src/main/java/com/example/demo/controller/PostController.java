@@ -4,16 +4,21 @@ package com.example.demo.controller;
 import com.example.demo.common.dto.SuccessMessage;
 import com.example.demo.common.dto.SuccessStatusResponse;
 import com.example.demo.domain.Blog;
+import com.example.demo.domain.Post;
 import com.example.demo.service.MemberService;
 import com.example.demo.service.PostService;
 import com.example.demo.service.dto.blog.BlogCreateRequest;
 import com.example.demo.service.dto.member.MemberCreateDto;
 import com.example.demo.service.dto.post.PostCreateRequest;
+import com.example.demo.service.dto.post.PostFindDto;
 import jakarta.validation.Valid;
 import java.net.URI;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.Mapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -35,7 +40,6 @@ public class PostController {
       @Valid @RequestBody PostCreateRequest postCreateRequest
   ) {
 
-
     // Location은 생성된 리소스의 위치를 나타낸다. 이 코드의 경우 생성된 post의 id
     return ResponseEntity.status(HttpStatus.CREATED).header(
             "Location",
@@ -43,4 +47,18 @@ public class PostController {
       .body(SuccessStatusResponse.of(SuccessMessage.POST_CREATE_SUCCESS));
   }
 
+  @GetMapping("post/{blogId}")
+  public ResponseEntity<SuccessStatusResponse> findPostList(
+      @RequestHeader(name = "memberId") Long memberId,
+      @PathVariable(name = "blogId") Long blogId
+      ) {
+
+    List<PostFindDto> postList = postService.findAllPost(memberId, blogId);
+
+    return ResponseEntity.ok(SuccessStatusResponse.of(
+        SuccessMessage.POST_FIND_SUCCESS,
+        postList
+    ));
+
+  }
 }
