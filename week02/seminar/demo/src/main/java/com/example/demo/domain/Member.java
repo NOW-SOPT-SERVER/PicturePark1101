@@ -17,28 +17,28 @@ import lombok.NoArgsConstructor;
 public class Member {
 
   @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @GeneratedValue(strategy = GenerationType.AUTO)
   private Long id;
 
   private String name;
 
-  @Enumerated(EnumType.ORDINAL)
+  @Enumerated(EnumType.STRING)
   private Part part;
 
   private int age;
-
-  public static Member create(String name, Part part, int age) {
-    return Member.builder()
-        .name(name)
-        .part(part)
-        .age(age)
-        .build();
-  }
 
   @Builder
   private Member(String name, Part part, int age) {
     this.name = name;
     this.part = part;
     this.age = age;
+  }
+
+  public static Member create(String name, Part part, int age) {
+    return Member.builder()
+        .name(name)
+        .age(age)
+        .part(part)
+        .build();
   }
 }
