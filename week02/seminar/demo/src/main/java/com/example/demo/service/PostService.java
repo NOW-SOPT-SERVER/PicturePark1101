@@ -1,8 +1,10 @@
 package com.example.demo.service;
 
 
+import com.example.demo.common.dto.ErrorMessage;
 import com.example.demo.domain.Blog;
 import com.example.demo.domain.Post;
+import com.example.demo.exception.NotFoundException;
 import com.example.demo.repository.PostRepository;
 import com.example.demo.service.dto.post.PostCreateRequest;
 import com.example.demo.service.dto.post.PostFindDto;
@@ -44,5 +46,24 @@ public class PostService {
     blogService.validateOwner(memberId, findMemberId);
 
     return PostListFindDto.of(postRepository.findByBlog(blog));
+  }
+
+  public Post findById(Long postId) {
+    return postRepository.findById(postId).orElseThrow(
+        () -> new NotFoundException(ErrorMessage.POST_NOT_FOUND)
+    );
+  }
+
+//  PostFindDto post = postService.findPost(memberId, blogId, postId);
+
+  public PostFindDto findPost(Long memberId, Long blogId, Long postId){
+    // blog 찾기
+    Blog blog = blogService.findById(blogId);
+    Long findMemberId = blog.getMember().getId();
+
+    // 요청한 사람이 블로그 소유주인지 확인
+    blogService.validateOwner(memberId, findMemberId);
+
+    return PostFindDto.of(findById(postId));
   }
 }

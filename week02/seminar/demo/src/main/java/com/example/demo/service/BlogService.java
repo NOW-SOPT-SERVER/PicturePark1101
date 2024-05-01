@@ -4,7 +4,7 @@ import com.example.demo.common.dto.ErrorMessage;
 import com.example.demo.domain.Blog;
 import com.example.demo.domain.Member;
 import com.example.demo.exception.NotFoundException;
-import com.example.demo.exception.ValidateException;
+import com.example.demo.exception.CustomValidateException;
 import com.example.demo.repository.BlogRepository;
 import com.example.demo.service.dto.blog.BlogCreateRequest;
 import com.example.demo.service.dto.blog.BlogTitleUpdateRequest;
@@ -41,7 +41,7 @@ public class BlogService {
 
   public void validateOwner(Long requestMemberId, Long findMemberId) {
     if (!requestMemberId.equals(findMemberId)) {
-      throw new ValidateException(ErrorMessage.BLOG_UNAUTHORIZED);
+      throw new CustomValidateException(ErrorMessage.BLOG_UNAUTHORIZED);
     }
   }
 }
