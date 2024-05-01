@@ -1,12 +1,8 @@
 package com.example.demo.service;
 
 
-import com.example.demo.common.dto.ErrorMessage;
 import com.example.demo.domain.Blog;
-import com.example.demo.domain.Member;
 import com.example.demo.domain.Post;
-import com.example.demo.exception.NotFoundException;
-import com.example.demo.repository.MemberRepository;
 import com.example.demo.repository.PostRepository;
 import com.example.demo.service.dto.post.PostCreateRequest;
 import lombok.RequiredArgsConstructor;
