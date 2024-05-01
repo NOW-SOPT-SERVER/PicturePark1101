@@ -1,4 +1,4 @@
-package com.example.demo.service.dto;
+package com.example.demo.service.dto.member;
 
 
 import com.example.demo.domain.enums.Part;

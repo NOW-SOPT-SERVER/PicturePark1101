@@ -1,7 +1,7 @@
 package com.example.demo.domain;
 
-import com.example.demo.service.dto.BlogCreateRequest;
-import com.example.demo.service.dto.BlogTitleUpdateRequest;
+import com.example.demo.service.dto.blog.BlogCreateRequest;
+import com.example.demo.service.dto.blog.BlogTitleUpdateRequest;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;

@@ -1,4 +1,4 @@
-package com.example.demo.service.dto;
+package com.example.demo.service.dto.blog;
 
 import jakarta.validation.constraints.Size;
 
