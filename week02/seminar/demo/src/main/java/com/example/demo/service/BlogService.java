@@ -8,6 +8,7 @@ import com.example.demo.exception.CustomValidateException;
 import com.example.demo.repository.BlogRepository;
 import com.example.demo.service.dto.blog.BlogCreateRequest;
 import com.example.demo.service.dto.blog.BlogTitleUpdateRequest;
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -39,9 +40,15 @@ public class BlogService {
     //    blogRepository.save(blog); 이렇게 해도 됨.
   }
 
-  public void validateOwner(Long requestMemberId, Long findMemberId) {
+  public Blog validateOwner(Long blogId, Long requestMemberId) {
+
+    Blog blog = findById(blogId);
+    Long findMemberId = blog.getMember().getId();
+
     if (!requestMemberId.equals(findMemberId)) {
       throw new CustomValidateException(ErrorMessage.BLOG_UNAUTHORIZED);
     }
+
+    return blog;
   }
 }
