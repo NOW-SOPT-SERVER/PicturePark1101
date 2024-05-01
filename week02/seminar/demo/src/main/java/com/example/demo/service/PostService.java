@@ -6,6 +6,7 @@ import com.example.demo.domain.Post;
 import com.example.demo.repository.PostRepository;
 import com.example.demo.service.dto.post.PostCreateRequest;
 import com.example.demo.service.dto.post.PostFindDto;
+import com.example.demo.service.dto.post.PostListFindDto;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -34,7 +35,7 @@ public class PostService {
     return post.getId().toString();
   }
 
-  public List<PostFindDto> findAllPost(Long memberId, Long blogId){
+  public PostListFindDto findAllPost(Long memberId, Long blogId){
     // blog 찾기
     Blog blog = blogService.findById(blogId);
     Long findMemberId = blog.getMember().getId();
@@ -42,7 +43,6 @@ public class PostService {
     // 요청한 사람이 블로그 소유주인지 확인
     blogService.validateOwner(memberId, findMemberId);
 
-    return postRepository.findByBlog(blog)
-        .stream().map(PostFindDto::of).toList();
+    return PostListFindDto.of(postRepository.findByBlog(blog));
   }
 }

@@ -11,6 +11,7 @@ import com.example.demo.service.dto.blog.BlogCreateRequest;
 import com.example.demo.service.dto.member.MemberCreateDto;
 import com.example.demo.service.dto.post.PostCreateRequest;
 import com.example.demo.service.dto.post.PostFindDto;
+import com.example.demo.service.dto.post.PostListFindDto;
 import jakarta.validation.Valid;
 import java.net.URI;
 import java.util.List;
@@ -53,7 +54,7 @@ public class PostController {
       @PathVariable(name = "blogId") Long blogId
       ) {
 
-    List<PostFindDto> postList = postService.findAllPost(memberId, blogId);
+    PostListFindDto postList = postService.findAllPost(memberId, blogId);
 
     return ResponseEntity.ok(SuccessStatusResponse.of(
         SuccessMessage.POST_FIND_SUCCESS,
