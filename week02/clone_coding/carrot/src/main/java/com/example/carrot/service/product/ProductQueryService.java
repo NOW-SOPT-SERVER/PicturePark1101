@@ -4,6 +4,6 @@ import com.example.carrot.model.dto.response.product.ProductListFindResponseDto;
 
 public interface ProductQueryService {
 
-  ProductListFindResponseDto findByRegion(String region);
+  ProductListFindResponseDto findByRegion(Long regionId);
 
 }

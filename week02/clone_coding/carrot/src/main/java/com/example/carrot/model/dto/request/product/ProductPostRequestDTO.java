@@ -11,6 +11,9 @@ public record ProductPostRequestDTO(
     @NotNull(message = "categoryId가 비었습니다.")
     Long categoryId,
 
+    @NotNull(message = "regionId가 비었습니다.")
+    Long regionId,
+
     @NotBlank(message = "null 혹은 공백이 전달되었습니다.")
     String title,
 

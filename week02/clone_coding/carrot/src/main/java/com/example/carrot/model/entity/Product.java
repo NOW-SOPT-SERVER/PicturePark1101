@@ -98,7 +98,7 @@ public class Product extends BaseEntity {
 
     return Product.builder()
         .member(member)
-//        .region(region)
+        .region(region)
         .regionNickname(regionNickname)
         .category(category)
         .title(title)
@@ -117,7 +117,7 @@ public class Product extends BaseEntity {
       TransactionMethod transactionMethod, String price, Boolean isEnabledOffer,
       TransactionStatus transactionStatus, String content, Boolean isPost) {
     this.member = member;
-//    this.region = region;
+    this.region = region;
     this.regionNickname = regionNickname;
     this.category = category;
     this.title = title;
