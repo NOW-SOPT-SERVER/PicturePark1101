@@ -1,9 +1,8 @@
 package com.example.carrot.service.product;
 
-import com.example.carrot.apiPayload.code.status.ErrorStatus;
-import com.example.carrot.apiPayload.exception.handler.CategoryHandler;
-import com.example.carrot.apiPayload.exception.handler.MemberHandler;
+import com.example.carrot.apiPayload.dto.ErrorMessage;
 import com.example.carrot.converter.product.ProductPostConverter;
+import com.example.carrot.exception.NotFoundException;
 import com.example.carrot.model.dto.request.product.ProductPostRequestDTO;
 import com.example.carrot.model.entity.Category;
 import com.example.carrot.model.entity.Member;
@@ -25,17 +24,17 @@ public class ProductCommandServiceImpl implements ProductCommandService {
   private final MemberRepository memberRepository;
   private final RegionRepository regionRepository;
 
-  public Product postProduct(ProductPostRequestDTO postRequestDTO) {
+  public String postProduct(ProductPostRequestDTO postRequestDTO) {
 
     Member findMember = memberRepository.findById(postRequestDTO.memberId())
-        .orElseThrow(() -> new MemberHandler(ErrorStatus._MEMBER_NOT_FIND));
+        .orElseThrow(() -> new NotFoundException(ErrorMessage.MEMBER_NOT_FOUND_BY_ID_EXCEPTION));
 
     Category findCategory = categoryRepository.findById(postRequestDTO.categoryId())
-        .orElseThrow(() -> new CategoryHandler(ErrorStatus._CATEGORY_NOT_FIND));
+        .orElseThrow(() -> new NotFoundException(ErrorMessage.CATEGORY_NOT_FOUND));
 
     Product newProduct = ProductPostConverter.toProduct(findMember, findCategory, postRequestDTO);
     productRepository.save(newProduct);
-    return newProduct;
+    return newProduct.getId().toString();
   }
 
 
