@@ -8,6 +8,7 @@ import com.example.carrot.model.dto.response.product.ProductPostResposeDTO;
 import com.example.carrot.service.product.ProductCommandService;
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
+import java.net.URI;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,10 +31,9 @@ public class ProductController {
       @RequestBody @Valid ProductPostRequestDTO postDTO
   ){
 
-    return ResponseEntity.status(HttpStatus.CREATED).header(
-            "Location",
-            productCommandService.postProduct(postDTO))
-        .body(SuccessStatusResponse.of(SuccessMessage.BLOG_CREATE_SUCCESS));
+    return ResponseEntity.created(
+        URI.create(productCommandService.postProduct(postDTO)))
+        .body(SuccessStatusResponse.of(SuccessMessage.POST_CREATE_SUCCESS));
   }
 
 }
