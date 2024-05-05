@@ -18,11 +18,9 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class ProductCommandServiceImpl implements ProductCommandService {
 
-
   private final ProductRepository productRepository;
   private final CategoryRepository categoryRepository;
   private final MemberRepository memberRepository;
-  private final RegionRepository regionRepository;
 
   public String postProduct(ProductPostRequestDTO postRequestDTO) {
 
