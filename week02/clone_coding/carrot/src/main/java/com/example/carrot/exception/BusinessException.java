@@ -1,7 +1,7 @@
 package com.example.carrot.exception;
 
+import com.example.carrot.apiPayload.dto.ErrorMessage;
 import lombok.Getter;
-import org.springdoc.api.ErrorMessage;
 
 @Getter
 public class BusinessException extends RuntimeException{
