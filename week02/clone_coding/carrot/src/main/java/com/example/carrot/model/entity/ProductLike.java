@@ -1,6 +1,8 @@
 package com.example.carrot.model.entity;
 
 import com.example.carrot.model.entity.common.BaseEntity;
+import com.example.carrot.model.enums.TransactionMethod;
+import com.example.carrot.model.enums.TransactionStatus;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -34,4 +36,17 @@ public class ProductLike extends BaseEntity {
   @JoinColumn(name = "member_id")
   private Member member;
 
+  public static ProductLike create(Member member, Product product) {
+
+    return ProductLike.builder()
+        .member(member)
+        .product(product)
+        .build();
+  }
+
+  @Builder
+  private ProductLike(Member member, Product product) {
+    this.member = member;
+    this.product = product;
+  }
 }
