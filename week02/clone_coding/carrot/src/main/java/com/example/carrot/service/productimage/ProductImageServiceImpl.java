@@ -21,5 +21,10 @@ public class ProductImageServiceImpl implements ProductImageService {
         .orElseThrow(() -> new NotFoundException(ErrorMessage.PRODUCT_NOT_FOUND_BY_ID_EXCEPTION));
   }
 
+  public String findByProductId(Long productId) {
+    return  productImageRepository.findTopByProductId(productId)
+        .map(ProductImage::getImageUrl)
+        .orElse(""); // 만약 ProductImage가 없을 땐  빈 문자열 반환하게..
+  }
 
 }

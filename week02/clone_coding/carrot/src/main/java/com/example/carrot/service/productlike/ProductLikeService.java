@@ -10,4 +10,6 @@ public interface ProductLikeService {
 
   public ProductLike findById(Long id);
 
+  public Long countByProductId(Long productId);
+
 }

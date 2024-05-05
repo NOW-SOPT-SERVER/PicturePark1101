@@ -6,4 +6,6 @@ public interface ProductImageService {
 
   public ProductImage findById(Long id);
 
+  public String findByProductId(Long productId);
+
 }
