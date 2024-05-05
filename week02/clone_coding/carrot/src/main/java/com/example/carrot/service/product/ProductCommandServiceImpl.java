@@ -30,7 +30,7 @@ public class ProductCommandServiceImpl implements ProductCommandService {
         .orElseThrow(() -> new NotFoundException(ErrorMessage.MEMBER_NOT_FOUND_BY_ID_EXCEPTION));
 
     Category findCategory = categoryRepository.findById(postRequestDTO.categoryId())
-        .orElseThrow(() -> new NotFoundException(ErrorMessage.CATEGORY_NOT_FOUND));
+        .orElseThrow(() -> new NotFoundException(ErrorMessage.CATEGORY_NOT_FOUND_BY_ID_EXCEPTION));
 
     Product newProduct = ProductPostConverter.toProduct(findMember, findCategory, postRequestDTO);
     productRepository.save(newProduct);

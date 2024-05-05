@@ -1,7 +1,7 @@
 package com.example.carrot.converter.product;
 
-import com.example.carrot.apiPayload.code.status.ErrorStatus;
-import com.example.carrot.apiPayload.exception.handler.ProductHandler;
+import com.example.carrot.apiPayload.dto.ErrorMessage;
+import com.example.carrot.exception.NotFoundException;
 import com.example.carrot.model.dto.request.product.ProductPostRequestDTO;
 import com.example.carrot.model.entity.Category;
 import com.example.carrot.model.entity.Member;
@@ -33,7 +33,7 @@ public class ProductPostConverter {
     try {
       return TransactionMethod.valueOf(transactionMethodName);
     } catch (IllegalArgumentException e) {
-      throw new ProductHandler(ErrorStatus._PRODUCT_BAD_REQUEST_TRANSACTION_METHOD);
+      throw new NotFoundException(ErrorMessage.TRANSACTION_METHOD_NOT_VALIDATED);
     }
   }
 
