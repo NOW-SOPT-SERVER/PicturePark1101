@@ -1,4 +1,4 @@
-package com.example.carrot.service.chatroom.productlike;
+package com.example.carrot.service.chatroom;
 
 import com.example.carrot.model.entity.Chatroom;
 import com.example.carrot.model.entity.ProductLike;

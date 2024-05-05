@@ -1,12 +1,10 @@
-package com.example.carrot.service.chatroom.productlike;
+package com.example.carrot.service.chatroom;
 
 
 import com.example.carrot.apiPayload.dto.ErrorMessage;
 import com.example.carrot.exception.NotFoundException;
 import com.example.carrot.model.entity.Chatroom;
-import com.example.carrot.model.entity.ProductLike;
 import com.example.carrot.repository.ChatroomRepository;
-import com.example.carrot.repository.ProductLikeRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
