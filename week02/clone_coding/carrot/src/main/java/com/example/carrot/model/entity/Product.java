@@ -88,6 +88,10 @@ public class Product extends BaseEntity {
   @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
   private List<ProductLike> productLikeList = new ArrayList<>();
 
+  // 사진
+  @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
+  private List<ProdcutImage> prodcutImageList = new ArrayList<>();
+
   public static Product create(Member member, Region region, String regionNickname, Category category,
       String title, TransactionMethod transactionMethod, String price, Boolean isEnabledOffer,
       TransactionStatus transactionStatus, String content, Boolean isPost) {
