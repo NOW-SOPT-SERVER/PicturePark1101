@@ -17,8 +17,6 @@ public record ProductFindResponseDto(
 ) {
   // 사진, 제목, updatedAt, 가격, 좋아요, 채팅방 수
 
-//            return new ProductFindResponseDto.of(product, productImage, cntLike, cntChatroom));
-
   public static ProductFindResponseDto of(
       Product product, String prodcutImage, Long cntLike, Long cntChatroom
   ) {
