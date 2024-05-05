@@ -44,12 +44,12 @@ public class ProductController {
   @Operation(summary = "지역별 상품 LIST API입니다.")
   @GetMapping
   public ResponseEntity<SuccessStatusResponse> getPostsByRegion  (
-      @RequestParam @NotBlank String region
+      @RequestParam Long regionId
   ){
 
     return ResponseEntity.ok(SuccessStatusResponse.of(
         SuccessMessage.PRODUCT_POST_FIND_SUCCESS,
-        productQueryService.findByRegion(region)));
+        productQueryService.findByRegion(regionId)));
   }
 
 }

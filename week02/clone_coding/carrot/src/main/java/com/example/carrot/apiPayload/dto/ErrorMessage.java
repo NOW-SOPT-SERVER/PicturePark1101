@@ -13,7 +13,8 @@ public enum ErrorMessage {
   TRANSACTION_METHOD_NOT_VALIDATED(HttpStatus.NOT_FOUND.value(), "해당 거래방식은 지정된 방식이 아닙니다."),
   PRODUCT_NOT_FOUND_BY_ID_EXCEPTION(HttpStatus.NOT_FOUND.value(), "ID에 해당하는 상품이 존재하지 않습니다."),
   PRODUCTIMAGE_NOT_FOUND_BY_ID_EXCEPTION(HttpStatus.NOT_FOUND.value(), "ID에 해당하는 상품 사진이 존재하지 않습니다."),
-  PRODUCTLIKE_NOT_FOUND_BY_ID_EXCEPTION(HttpStatus.NOT_FOUND.value(), "ID에 해당하는 좋아요 글이 존재하지 않습니다.");
+  PRODUCTLIKE_NOT_FOUND_BY_ID_EXCEPTION(HttpStatus.NOT_FOUND.value(), "ID에 해당하는 좋아요 글이 존재하지 않습니다."),
+  REGION_NOT_FOUND_BY_ID_EXCEPTION(HttpStatus.NOT_FOUND.value(), "ID에 해당하는 지역이 존재하지 않습니다.");
   ;
 
   private final int status;
