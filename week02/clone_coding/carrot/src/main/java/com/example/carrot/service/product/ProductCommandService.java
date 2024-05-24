@@ -5,6 +5,5 @@ import com.example.carrot.model.entity.Product;
 
 public interface ProductCommandService {
 
-  public String postProduct(ProductPostRequestDTO postRequestDTO);
-
+  String postProduct(ProductPostRequestDTO postRequestDTO);
 }

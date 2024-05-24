@@ -5,8 +5,5 @@ import com.example.carrot.model.entity.Product;
 
 public interface ProductQueryService {
 
-  public ProductListFindResponseDto findByRegion(Long regionId);
-
-  public Product findById(Long id);
-
+  ProductListFindResponseDto findByRegion(Long regionId);
 }

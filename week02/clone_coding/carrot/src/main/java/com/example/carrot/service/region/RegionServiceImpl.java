@@ -13,13 +13,4 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 public class RegionServiceImpl implements RegionService {
-
-  private final RegionRepository regionRepository;
-
-  public Region findById(Long id) {
-
-    return regionRepository.findById(id)
-        .orElseThrow(() -> new NotFoundException(ErrorMessage.PRODUCTLIKE_NOT_FOUND_BY_ID_EXCEPTION));
-  }
-
 }
