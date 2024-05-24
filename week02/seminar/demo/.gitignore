@@ -184,6 +184,7 @@ Temporary Items
 .gradle
 **/build/
 !src/**/build/
+.gradle/8.7/*
 
 # Ignore Gradle GUI config
 gradle-app.setting
