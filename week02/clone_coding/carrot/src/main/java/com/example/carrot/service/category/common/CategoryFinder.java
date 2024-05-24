@@ -14,7 +14,7 @@ public class CategoryFinder {
 
   private final CategoryRepository categoryRepository;
 
-  public Category findById(Long id) {
+  public Category findById(long id) {
 
     return categoryRepository.findById(id)
         .orElseThrow(() -> new NotFoundException(ErrorMessage.CATEGORY_NOT_FOUND_BY_ID_EXCEPTION));

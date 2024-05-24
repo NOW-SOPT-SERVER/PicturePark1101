@@ -13,7 +13,7 @@ public class ChatRoomFinder {
 
   private final ChatroomRepository chatroomRepository;
 
-  public Chatroom findById(Long id) {
+  public Chatroom findById(long id) {
 
     return chatroomRepository.findById(id)
         .orElseThrow(() -> new NotFoundException(ErrorMessage.PRODUCTLIKE_NOT_FOUND_BY_ID_EXCEPTION));

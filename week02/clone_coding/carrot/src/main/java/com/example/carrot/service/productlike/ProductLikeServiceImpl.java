@@ -22,17 +22,17 @@ public class ProductLikeServiceImpl implements ProductLikeService {
   private final MemberFinder memberFinder;
   private final ProductFinder productFinder;
 
-  public Optional<ProductLike> findByMemberIdAndProductId(Long memberId, Long productId) {
+  public Optional<ProductLike> findByMemberIdAndProductId(long memberId, long productId) {
     return productLikeRepository.findByMemberIdAndProductId(memberId, productId);
   }
 
 
-  public Long countByProductId(Long productId) {
+  public long countByProductId(long productId) {
     return productLikeRepository.countByProductId(productId);
   }
 
   @Transactional
-  public Boolean actionLike(Long memberId, Long productId) {
+  public boolean actionLike(long memberId, long productId) {
     // 좋아요 테이블에서 찾기
     Optional<ProductLike> findProductLike = findByMemberIdAndProductId(memberId, productId);
 

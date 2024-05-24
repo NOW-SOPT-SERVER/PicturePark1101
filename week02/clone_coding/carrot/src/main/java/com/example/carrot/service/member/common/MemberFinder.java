@@ -13,7 +13,7 @@ public class MemberFinder {
 
   private final MemberRepository memberRepository;
 
-  public Member findById(Long id) {
+  public Member findById(long id) {
 
     return memberRepository.findById(id)
         .orElseThrow(() -> new NotFoundException(ErrorMessage.MEMBER_NOT_FOUND_BY_ID_EXCEPTION));

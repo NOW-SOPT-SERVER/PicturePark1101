@@ -10,7 +10,7 @@ public class ChatroomServiceImpl implements ChatroomService {
 
   private final ChatroomRepository chatroomRepository;
 
-  public Long countByProductId(Long productId) {
+  public Long countByProductId(long productId) {
     return chatroomRepository.countByProductId(productId);
   }
 }

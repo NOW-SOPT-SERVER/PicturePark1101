@@ -5,6 +5,6 @@ import com.example.carrot.model.entity.ProductLike;
 
 public interface ChatroomService {
 
-  Long countByProductId(Long productId);
+  Long countByProductId(long productId);
 
 }

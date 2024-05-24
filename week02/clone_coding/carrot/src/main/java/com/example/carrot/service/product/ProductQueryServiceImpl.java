@@ -26,7 +26,8 @@ public class ProductQueryServiceImpl implements ProductQueryService{
   private final ChatroomService chatroomService;
 
   @Transactional(readOnly = true)
-  public ProductListFindResponseDto findByRegion(Long regionId){
+  @Override
+  public ProductListFindResponseDto findByRegion(long regionId){
 
     List<Product> products = productRepository.findByRegionId(regionId);
 

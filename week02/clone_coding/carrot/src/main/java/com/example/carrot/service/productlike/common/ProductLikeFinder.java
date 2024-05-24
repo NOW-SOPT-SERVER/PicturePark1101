@@ -14,7 +14,7 @@ public class ProductLikeFinder {
 
   private final ProductLikeRepository productLikeRepository;
 
-  public ProductLike findById(Long id) {
+  public ProductLike findById(long id) {
 
     return productLikeRepository.findById(id)
         .orElseThrow(() -> new NotFoundException(ErrorMessage.PRODUCTLIKE_NOT_FOUND_BY_ID_EXCEPTION));
