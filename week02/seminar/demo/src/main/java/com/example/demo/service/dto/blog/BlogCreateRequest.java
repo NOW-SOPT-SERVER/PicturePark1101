@@ -1,9 +1,10 @@
 package com.example.demo.service.dto.blog;
 
-public record BlogCreateRequest (
+import org.springframework.web.multipart.MultipartFile;
 
+public record BlogCreateRequest(
     String title,
-    String description
-){
-
+    String description,
+    MultipartFile image
+) {
 }

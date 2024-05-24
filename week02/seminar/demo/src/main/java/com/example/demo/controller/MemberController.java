@@ -1,10 +1,12 @@
 package com.example.demo.controller;
 
 import com.example.demo.service.MemberService;
+import com.example.demo.service.dto.UserJoinResponse;
 import com.example.demo.service.dto.member.MemberCreateDto;
 import com.example.demo.service.dto.member.MemberFindDto;
 import java.net.URI;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,10 +24,15 @@ public class MemberController {
   private final MemberService memberService;
 
   @PostMapping
-  public ResponseEntity postMember(
+  public ResponseEntity<UserJoinResponse> postMember(
       @RequestBody MemberCreateDto memberCreate
   ) {
-    return ResponseEntity.created(URI.create(memberService.createMember(memberCreate))).build();
+    UserJoinResponse userJoinResponse = memberService.createMember(memberCreate);
+    return ResponseEntity.status(HttpStatus.CREATED)
+        .header("Location", userJoinResponse.userId())
+        .body(
+            userJoinResponse
+        );
   }
 
   @GetMapping("/{memberId}")

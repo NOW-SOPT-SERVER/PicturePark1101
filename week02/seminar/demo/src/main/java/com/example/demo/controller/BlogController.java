@@ -1,14 +1,17 @@
 package com.example.demo.controller;
 
+import com.example.demo.auth.PrincipalHandler;
 import com.example.demo.common.dto.SuccessMessage;
 import com.example.demo.common.dto.SuccessStatusResponse;
 import com.example.demo.service.BlogService;
 import com.example.demo.service.dto.blog.BlogCreateRequest;
 import com.example.demo.service.dto.blog.BlogTitleUpdateRequest;
 import jakarta.validation.Valid;
+import java.net.URI;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -24,15 +27,14 @@ public class BlogController {
 
   private final BlogService blogService;
 
+  private final PrincipalHandler principalHandler;
+
   @PostMapping("/blog")
-  public ResponseEntity<SuccessStatusResponse> createBlog(
-      @RequestHeader(name = "memberId") Long memberId,
-      @RequestBody BlogCreateRequest blogCreateRequest
+  public ResponseEntity createBlog(
+      @ModelAttribute BlogCreateRequest blogCreateRequest
   ) {
-    return ResponseEntity.status(HttpStatus.CREATED).header(
-            "Location",
-            blogService.create(memberId, blogCreateRequest))
-        .body(SuccessStatusResponse.of(SuccessMessage.BLOG_CREATE_SUCCESS));
+    return ResponseEntity.created(URI.create(blogService.create(
+        principalHandler.getUserIdFromPrincipal(), blogCreateRequest))).build();
   }
 
   @PatchMapping("/blog/{blogId}/title")

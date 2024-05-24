@@ -1,9 +1,12 @@
 package com.example.demo.service;
 
+import com.example.demo.auth.UserAuthentication;
 import com.example.demo.common.dto.ErrorMessage;
+import com.example.demo.common.jwt.JwtTokenProvider;
 import com.example.demo.domain.Member;
 import com.example.demo.exception.NotFoundException;
 import com.example.demo.repository.MemberRepository;
+import com.example.demo.service.dto.UserJoinResponse;
 import com.example.demo.service.dto.member.MemberCreateDto;
 import com.example.demo.service.dto.member.MemberFindDto;
 import jakarta.persistence.EntityNotFoundException;
@@ -16,14 +19,20 @@ import org.springframework.transaction.annotation.Transactional;
 public class MemberService {
 
   private final MemberRepository memberRepository;
+  private final JwtTokenProvider jwtTokenProvider;
 
   @Transactional
-  public String createMember(
-      final MemberCreateDto memberCreate // 인자의 불변성을 보장
+  public UserJoinResponse createMember(
+      MemberCreateDto memberCreate
   ) {
     Member member = memberRepository.save(
-        Member.create(memberCreate.name(), memberCreate.part(), memberCreate.age()));
-    return member.getId().toString();
+        Member.create(memberCreate.name(), memberCreate.part(), memberCreate.age())
+    );
+    Long memberId = member.getId();
+    String accessToken = jwtTokenProvider.issueAccessToken(
+        UserAuthentication.createUserAuthentication(memberId)
+    );
+    return UserJoinResponse.of(accessToken, memberId.toString());
   }
 
   public Member findById(Long memberId) {
