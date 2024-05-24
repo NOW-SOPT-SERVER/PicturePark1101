@@ -179,11 +179,11 @@ Temporary Items
 
 # End of https://www.toptal.com/developers/gitignore/api/intellij,macos,java
 
-
 ### Gradle ###
 .gradle
 **/build/
 !src/**/build/
+
 
 # Ignore Gradle GUI config
 gradle-app.setting
