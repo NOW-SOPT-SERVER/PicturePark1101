@@ -14,6 +14,7 @@ import com.example.carrot.service.productlike.ProductLikeService;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -24,6 +25,7 @@ public class ProductQueryServiceImpl implements ProductQueryService{
   private final ProductLikeService productLikeService;
   private final ChatroomService chatroomService;
 
+  @Transactional(readOnly = true)
   public ProductListFindResponseDto findByRegion(Long regionId){
 
     List<Product> products = productRepository.findByRegionId(regionId);
