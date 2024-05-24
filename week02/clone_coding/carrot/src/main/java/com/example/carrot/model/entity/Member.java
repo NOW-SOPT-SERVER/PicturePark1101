@@ -46,4 +46,11 @@ public class Member extends BaseEntity {
   @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
   private List<ActiveRegion> activeRegionList = new ArrayList<>();
 
+  // 채팅 메시지
+  @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
+  private List<ChatMessage> chatMessageList = new ArrayList<>();
+
+  // 상품 좋아요
+  @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
+  private List<ProductLike> productLikeList = new ArrayList<>();
 }

@@ -76,9 +76,21 @@ public class Product extends BaseEntity {
   @Column(nullable = false)
   private Boolean isPost;
 
+  // 가격제안
   @OneToMany(mappedBy = "product")
   private List<PriceOffer> priceOfferList = new ArrayList<>();
 
+  // 채팅방
+  @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
+  private List<Chatroom> chatroomList = new ArrayList<>();
+
+  // 좋아요
+  @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
+  private List<ProductLike> productLikeList = new ArrayList<>();
+
+  // 사진
+  @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
+  private List<ProductImage> productImageList = new ArrayList<>();
 
   public static Product create(Member member, Region region, String regionNickname, Category category,
       String title, TransactionMethod transactionMethod, String price, Boolean isEnabledOffer,
@@ -86,7 +98,7 @@ public class Product extends BaseEntity {
 
     return Product.builder()
         .member(member)
-//        .region(region)
+        .region(region)
         .regionNickname(regionNickname)
         .category(category)
         .title(title)
@@ -105,7 +117,7 @@ public class Product extends BaseEntity {
       TransactionMethod transactionMethod, String price, Boolean isEnabledOffer,
       TransactionStatus transactionStatus, String content, Boolean isPost) {
     this.member = member;
-//    this.region = region;
+    this.region = region;
     this.regionNickname = regionNickname;
     this.category = category;
     this.title = title;

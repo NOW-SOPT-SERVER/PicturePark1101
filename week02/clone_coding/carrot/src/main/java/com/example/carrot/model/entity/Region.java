@@ -26,7 +26,13 @@ public class Region extends BaseEntity {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  private String name;
+  // 시도
+  private String sidos;
 
-  // 단순히 우리나라 지역을 저장하는 DB라 ActiveRegion, Product와 양방향 매핑을 할 필요는 없을 것 같다.
+  // 시군구
+  private String sigungus;
+
+  // 읍면동
+  private String EupMyeonDongs;
+
 }
