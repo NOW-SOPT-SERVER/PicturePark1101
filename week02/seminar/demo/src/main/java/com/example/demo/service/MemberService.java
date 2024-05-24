@@ -1,9 +1,11 @@
 package com.example.demo.service;
 
-import com.example.seminar.domain.Member;
-import com.example.seminar.repository.MemberRepository;
-import com.example.seminar.service.dto.MemberCreateDto;
-import com.example.seminar.service.dto.MemberFindDto;
+import com.example.demo.common.dto.ErrorMessage;
+import com.example.demo.domain.Member;
+import com.example.demo.exception.NotFoundException;
+import com.example.demo.repository.MemberRepository;
+import com.example.demo.service.dto.member.MemberCreateDto;
+import com.example.demo.service.dto.member.MemberFindDto;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -22,6 +24,11 @@ public class MemberService {
     Member member = memberRepository.save(
         Member.create(memberCreate.name(), memberCreate.part(), memberCreate.age()));
     return member.getId().toString();
+  }
+
+  public Member findById(Long memberId) {
+    return memberRepository.findById(memberId).orElseThrow(
+        () -> new NotFoundException(ErrorMessage.MEMBER_NOT_FOUND_BY_ID_EXCEPTION));
   }
 
   public Member findMemberById(

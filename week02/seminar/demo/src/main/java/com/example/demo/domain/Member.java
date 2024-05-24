@@ -1,6 +1,6 @@
 package com.example.demo.domain;
 
-import com.example.seminar.domain.enums.Part;
+import com.example.demo.domain.enums.Part;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
