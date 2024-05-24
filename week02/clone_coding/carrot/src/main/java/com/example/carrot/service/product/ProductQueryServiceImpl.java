@@ -9,22 +9,25 @@ import com.example.carrot.model.entity.Product;
 import com.example.carrot.repository.ProductRepository;
 import com.example.carrot.service.chatroom.ChatroomService;
 import com.example.carrot.service.productimage.ProductImageService;
-import com.example.carrot.service.productlike.ProductLikeCommandService;
+import com.example.carrot.service.productimage.common.ProductImageFinder;
+import com.example.carrot.service.productlike.ProductLikeService;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
 public class ProductQueryServiceImpl implements ProductQueryService{
 
   private final ProductRepository productRepository;
-  private final ProductImageService productImageService;
-  private final ProductLikeCommandService productLikeCommandService;
+  private final ProductImageFinder productImageFinder;
+  private final ProductLikeService productLikeService;
   private final ChatroomService chatroomService;
 
-
-  public ProductListFindResponseDto findByRegion(Long regionId){
+  @Transactional(readOnly = true)
+  @Override
+  public ProductListFindResponseDto findByRegion(long regionId){
 
     List<Product> products = productRepository.findByRegionId(regionId);
 
@@ -34,8 +37,8 @@ public class ProductQueryServiceImpl implements ProductQueryService{
 
     List<ProductFindResponseDto> productFindResponseDtoList = products.stream()
         .map(product -> {
-          String productImage = productImageService.findByProductId(product.getId());
-          Long cntLike = productLikeCommandService.countByProductId(product.getId());
+          String productImage = productImageFinder.findByProductId(product.getId());
+          Long cntLike = productLikeService.countByProductId(product.getId());
           Long cntChatroom = chatroomService.countByProductId(product.getId());
 
           return ProductFindResponseDto.of(product, productImage, cntLike, cntChatroom);
@@ -43,11 +46,4 @@ public class ProductQueryServiceImpl implements ProductQueryService{
 
     return new ProductListFindResponseDto(productFindResponseDtoList);
   }
-
-  public Product findById(Long id) {
-    return productRepository.findById(id)
-        .orElseThrow(
-            () -> new NotFoundException(ErrorMessage.PRODUCT_NOT_FOUND_BY_ID_EXCEPTION));
-  }
-
 }

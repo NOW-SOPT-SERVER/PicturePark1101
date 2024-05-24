@@ -11,11 +11,4 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class MemberServiceImpl implements MemberService{
 
-  private final MemberRepository memberRepository;
-
-  public Member findById(Long id) {
-
-    return memberRepository.findById(id)
-        .orElseThrow(() -> new NotFoundException(ErrorMessage.MEMBER_NOT_FOUND_BY_ID_EXCEPTION));
-  }
 }

@@ -12,8 +12,11 @@ import com.example.carrot.repository.CategoryRepository;
 import com.example.carrot.repository.MemberRepository;
 import com.example.carrot.repository.ProductRepository;
 import com.example.carrot.repository.RegionRepository;
+import com.example.carrot.service.category.common.CategoryFinder;
 import com.example.carrot.service.member.MemberService;
+import com.example.carrot.service.member.common.MemberFinder;
 import com.example.carrot.service.region.RegionService;
+import com.example.carrot.service.region.common.RegionFinder;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,26 +26,21 @@ import org.springframework.transaction.annotation.Transactional;
 public class ProductCommandServiceImpl implements ProductCommandService {
 
   private final ProductRepository productRepository;
-  private final RegionService regionService;
-  private final CategoryRepository categoryRepository;
-  private final MemberService memberService;
+  private final CategoryFinder categoryFinder;
+  private final MemberFinder memberFinder;
+  private final RegionFinder regionFinder;
 
   @Transactional
   public String postProduct(ProductPostRequestDTO postRequestDTO) {
 
-    Member findMember = memberService.findById(postRequestDTO.memberId());
+    Member findMember = memberFinder.findById(postRequestDTO.memberId());
 
-    // 일단 냅두기.. category와 Regiond의 service를 따로 생성할 필요가 있는지..
-    Category findCategory = categoryRepository.findById(postRequestDTO.categoryId())
-        .orElseThrow(() -> new NotFoundException(ErrorMessage.CATEGORY_NOT_FOUND_BY_ID_EXCEPTION));
-
-    Region findRegion = regionService.findById(postRequestDTO.regionId());
-
-    Product newProduct = ProductPostConverter.toProduct(findMember, findRegion, findCategory, postRequestDTO);
+    Category findCategory = categoryFinder.findById(postRequestDTO.categoryId());
+    Region findRegion = regionFinder.findById(postRequestDTO.regionId());
+    Product newProduct = ProductPostConverter.toProduct(findMember, findRegion, findCategory,
+        postRequestDTO);
 
     productRepository.save(newProduct);
     return newProduct.getId().toString();
   }
-
-
 }
