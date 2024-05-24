@@ -183,8 +183,8 @@ Temporary Items
 .gradle
 **/build/
 !src/**/build/
-
 .gradle/8.7/*
+.gradle/8.7/fileHashes.lock
 
 # Ignore Gradle GUI config
 gradle-app.setting
