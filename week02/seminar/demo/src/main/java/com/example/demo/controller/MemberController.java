@@ -1,10 +1,12 @@
 package com.example.demo.controller;
 
+import com.example.demo.common.dto.SuccessMessage;
+import com.example.demo.common.dto.SuccessStatusResponse;
 import com.example.demo.service.MemberService;
-import com.example.demo.service.dto.UserJoinResponse;
+import com.example.demo.service.dto.member.RegenerateAccessTokenRequestDto;
+import com.example.demo.service.dto.member.UserJoinResponse;
 import com.example.demo.service.dto.member.MemberCreateDto;
 import com.example.demo.service.dto.member.MemberFindDto;
-import java.net.URI;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,26 +15,35 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/v1/member") // 버전1의 api를 만든다.
+@RequestMapping("/api/v1/members") // 버전1의 api를 만든다.
 public class MemberController {
 
   private final MemberService memberService;
 
   @PostMapping
-  public ResponseEntity<UserJoinResponse> postMember(
+  public ResponseEntity<SuccessStatusResponse> postMember(
       @RequestBody MemberCreateDto memberCreate
   ) {
     UserJoinResponse userJoinResponse = memberService.createMember(memberCreate);
     return ResponseEntity.status(HttpStatus.CREATED)
         .header("Location", userJoinResponse.userId())
-        .body(
-            userJoinResponse
-        );
+        .body(SuccessStatusResponse.of (SuccessMessage.MEMBER_SING_UP_SUCCESS, userJoinResponse));
+  }
+
+  @PostMapping("/regenerate-token")
+  public ResponseEntity<SuccessStatusResponse> regenerateToken(
+      @RequestBody RegenerateAccessTokenRequestDto regenerateAccessTokenRequestDto
+  ) {
+    return ResponseEntity.ok()
+        .body(SuccessStatusResponse.of(
+            SuccessMessage.ACCESS_TOKEN_REGENERATE_SUCCESS,
+            memberService.getNewAccessToken(regenerateAccessTokenRequestDto)));
   }
 
   @GetMapping("/{memberId}")
@@ -49,5 +60,4 @@ public class MemberController {
     memberService.deleteMemberById(memberId);
     return ResponseEntity.noContent().build();
   }
-
 }

@@ -5,6 +5,7 @@ import com.example.demo.domain.Blog;
 import com.example.demo.domain.Post;
 import com.example.demo.exception.NotFoundException;
 import com.example.demo.repository.PostRepository;
+import com.example.demo.service.BlogService;
 import com.example.demo.service.dto.post.PostCreateRequest;
 import com.example.demo.service.dto.post.PostFindDto;
 import com.example.demo.service.dto.post.PostListFindDto;
@@ -30,9 +31,8 @@ public class PostService {
     return post.getId().toString();
   }
 
-  public PostListFindDto findAllPost(Long memberId, Long blogId){
-
-    Blog findBlog = blogService.validateOwner(blogId, memberId);
+  public PostListFindDto findAllPost(Long blogId){
+    Blog findBlog = blogService.findById(blogId);
     return PostListFindDto.of(postRepository.findByBlog(findBlog));
   }
 
@@ -42,9 +42,8 @@ public class PostService {
     );
   }
 
-  public PostFindDto findPost(Long memberId, Long blogId, Long postId){
+  public PostFindDto findPost(Long postId){
 
-    blogService.validateOwner(blogId, memberId);
     return PostFindDto.of(findById(postId));
   }
 }
