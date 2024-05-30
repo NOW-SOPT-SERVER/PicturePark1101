@@ -6,11 +6,12 @@ import com.example.demo.common.jwt.JwtTokenProvider;
 import com.example.demo.domain.Member;
 import com.example.demo.exception.NotFoundException;
 import com.example.demo.repository.MemberRepository;
-import com.example.demo.service.dto.UserJoinResponse;
+import com.example.demo.service.dto.member.UserJoinResponse;
 import com.example.demo.service.dto.member.MemberCreateDto;
 import com.example.demo.service.dto.member.MemberFindDto;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.boot.autoconfigure.data.redis.RedisProperties.Lettuce.Cluster.Refresh;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -32,7 +33,11 @@ public class MemberService {
     String accessToken = jwtTokenProvider.issueAccessToken(
         UserAuthentication.createUserAuthentication(memberId)
     );
-    return UserJoinResponse.of(accessToken, memberId.toString());
+    String refreshToekn = jwtTokenProvider.issueRefreshToken(
+        UserAuthentication.createUserAuthentication(memberId)
+    );
+    return UserJoinResponse.of( memberId.toString(), accessToken, refreshToekn);
+
   }
 
   public Member findById(Long memberId) {

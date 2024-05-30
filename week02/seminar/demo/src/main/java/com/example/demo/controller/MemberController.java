@@ -1,10 +1,9 @@
 package com.example.demo.controller;
 
 import com.example.demo.service.MemberService;
-import com.example.demo.service.dto.UserJoinResponse;
+import com.example.demo.service.dto.member.UserJoinResponse;
 import com.example.demo.service.dto.member.MemberCreateDto;
 import com.example.demo.service.dto.member.MemberFindDto;
-import java.net.URI;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -49,5 +48,4 @@ public class MemberController {
     memberService.deleteMemberById(memberId);
     return ResponseEntity.noContent().build();
   }
-
 }

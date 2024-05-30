@@ -22,17 +22,19 @@ import java.util.Date;
 public class JwtTokenProvider {
 
   private static final String USER_ID = "userId";
-
-  private static final Long ACCESS_TOKEN_EXPIRATION_TIME = 24 * 60 * 60 * 1000L * 14;
+  private static final Long ACCESS_TOKEN_EXPIRATION_TIME = 60 * 60 * 1000L;
+  private static final Long REFRESH_TOKEN_EXPIRATION_TIME = 60 * 60 * 24 * 1000L * 14;
 
   @Value("${jwt.secret}")
   private String JWT_SECRET;
-
 
   public String issueAccessToken(final Authentication authentication) {
     return generateToken(authentication, ACCESS_TOKEN_EXPIRATION_TIME);
   }
 
+  public String issueRefreshToken(final Authentication authentication) {
+    return generateToken(authentication, REFRESH_TOKEN_EXPIRATION_TIME);
+  }
 
   public String generateToken(Authentication authentication, Long tokenExpirationTime) {
     final Date now = new Date();

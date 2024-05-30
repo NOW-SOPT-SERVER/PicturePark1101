@@ -1,16 +1,16 @@
 package com.example.demo.service.dto.member;
 
 public record UserJoinResponse(
+    String userId,
     String accessToken,
-    String refreshToekn,
-    String userId
+    String refreshToekn
 ) {
 
   public static UserJoinResponse of(
+      String userId,
       String accessToken,
-      String refreshToekn,
-      String userId
+      String refreshToekn
   ) {
-    return new UserJoinResponse(accessToken, refreshToekn, userId);
+    return new UserJoinResponse(userId, accessToken, refreshToekn);
   }
 }
