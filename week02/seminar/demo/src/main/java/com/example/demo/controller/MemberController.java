@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/v1/member") // 버전1의 api를 만든다.
+@RequestMapping("/api/v1/members") // 버전1의 api를 만든다.
 public class MemberController {
 
   private final MemberService memberService;

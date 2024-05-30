@@ -10,7 +10,7 @@ public record SuccessStatusResponse<T>(
     return new SuccessStatusResponse(successMessage.getStatus(), successMessage.getMessage(), null);
   }
 
-  public static <T> SuccessStatusResponse of(SuccessMessage successMessage, T responseDto) {
+  public static <T> SuccessStatusResponse<T> of(SuccessMessage successMessage, T responseDto) {
     return new SuccessStatusResponse(successMessage.getStatus(), successMessage.getMessage(), responseDto);
   }
 

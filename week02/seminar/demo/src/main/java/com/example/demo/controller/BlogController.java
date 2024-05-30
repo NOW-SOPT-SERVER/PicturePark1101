@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/v1")
+@RequestMapping("/api/v1/blogs")
 @RequiredArgsConstructor
 public class BlogController {
 
@@ -29,7 +29,7 @@ public class BlogController {
 
   private final PrincipalHandler principalHandler;
 
-  @PostMapping("/blog")
+  @PostMapping("")
   public ResponseEntity createBlog(
       @ModelAttribute BlogCreateRequest blogCreateRequest
   ) {
@@ -37,7 +37,7 @@ public class BlogController {
         principalHandler.getUserIdFromPrincipal(), blogCreateRequest))).build();
   }
 
-  @PatchMapping("/blog/{blogId}/title")
+  @PatchMapping("/{blogId}/title")
   public ResponseEntity updateBlogTitle(
       @PathVariable Long blogId,
       @Valid @RequestBody BlogTitleUpdateRequest blogTitleUpdateRequest

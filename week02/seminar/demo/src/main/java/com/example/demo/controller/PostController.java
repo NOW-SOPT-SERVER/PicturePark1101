@@ -7,8 +7,8 @@ import com.example.demo.service.dto.post.PostCreateRequest;
 import com.example.demo.service.dto.post.PostFindDto;
 import com.example.demo.service.dto.post.PostListFindDto;
 import jakarta.validation.Valid;
+import java.net.URI;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -25,27 +25,24 @@ public class PostController {
 
   private final PostService postService;
 
-  @PostMapping("post/{blogId}")
+  @PostMapping(" /blogs/{blogId}/posts")
   public ResponseEntity<SuccessStatusResponse> publishPost(
       @RequestHeader(name = "memberId") Long memberId,
       @PathVariable(name = "blogId") Long blogId,
       @Valid @RequestBody PostCreateRequest postCreateRequest
   ) {
 
-    // Location은 생성된 리소스의 위치를 나타낸다. 이 코드의 경우 생성된 post의 id
-    return ResponseEntity.status(HttpStatus.CREATED).header(
-            "Location",
-            postService.create(memberId, blogId, postCreateRequest))
-        .body(SuccessStatusResponse.of(SuccessMessage.POST_CREATE_SUCCESS));
+    return ResponseEntity.created(
+        URI.create(postService.create(memberId, blogId, postCreateRequest))).build();
   }
 
-  @GetMapping("post/{blogId}")
+  @GetMapping(" /blogs/{blogId}/posts")
   public ResponseEntity<SuccessStatusResponse> findPostList(
       @RequestHeader(name = "memberId") Long memberId,
       @PathVariable(name = "blogId") Long blogId
   ) {
 
-    PostListFindDto postList = postService.findAllPost(memberId, blogId);
+    PostListFindDto postList = postService.findAllPost(blogId);
 
     return ResponseEntity.ok(SuccessStatusResponse.of(
         SuccessMessage.POST_FIND_SUCCESS,
@@ -54,14 +51,14 @@ public class PostController {
 
   }
 
-  @GetMapping("post/{blogId}/{postId}")
+  @GetMapping("/blogs/{blogId}/posts/{postId}")
   public ResponseEntity<SuccessStatusResponse> findPost(
       @RequestHeader(name = "memberId") Long memberId,
       @PathVariable(name = "blogId") Long blogId,
       @PathVariable(name = "postId") Long postId
   ) {
 
-    PostFindDto post = postService.findPost(memberId, blogId, postId);
+    PostFindDto post = postService.findPost(postId);
 
     return ResponseEntity.ok(SuccessStatusResponse.of(
         SuccessMessage.POST_FIND_SUCCESS,

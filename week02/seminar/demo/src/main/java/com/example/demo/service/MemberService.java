@@ -48,13 +48,11 @@ public class MemberService {
     );
   }
 
-
   @Transactional(readOnly = true) // 써도 되고 안 써도 됨.
   public MemberFindDto findMemberById2(Long memberId) {
     return MemberFindDto.of(memberRepository.findById(memberId).orElseThrow(
         () -> new EntityNotFoundException("ID에 해당하는 사용자가 존재하지 않습니다.")));
   }
-
 
   @Transactional
   public void deleteMemberById(Long memberId) {
