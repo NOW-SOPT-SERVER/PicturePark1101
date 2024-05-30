@@ -60,7 +60,7 @@ public class MemberService {
     Token token = getRefreshToken(refreshToken);
 
     // 존재하는 토큰이 유효한 토큰인지(제대로 된 토큰인지) 다시 검증
-    jwtTokenProvider.validateToken(refreshToken);
+    jwtTokenProvider.validateToken(token.getRefreshToken());
 
     // 유효하다면 액세스 토큰 재발급
     String accessToken = jwtTokenProvider.issueAccessToken(
