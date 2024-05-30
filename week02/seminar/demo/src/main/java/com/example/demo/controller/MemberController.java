@@ -1,6 +1,9 @@
 package com.example.demo.controller;
 
+import com.example.demo.common.dto.SuccessMessage;
+import com.example.demo.common.dto.SuccessStatusResponse;
 import com.example.demo.service.MemberService;
+import com.example.demo.service.dto.member.RegenerateAccessTokenDto;
 import com.example.demo.service.dto.member.UserJoinResponse;
 import com.example.demo.service.dto.member.MemberCreateDto;
 import com.example.demo.service.dto.member.MemberFindDto;
@@ -12,6 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -23,15 +27,23 @@ public class MemberController {
   private final MemberService memberService;
 
   @PostMapping
-  public ResponseEntity<UserJoinResponse> postMember(
+  public ResponseEntity<SuccessStatusResponse> postMember(
       @RequestBody MemberCreateDto memberCreate
   ) {
     UserJoinResponse userJoinResponse = memberService.createMember(memberCreate);
     return ResponseEntity.status(HttpStatus.CREATED)
         .header("Location", userJoinResponse.userId())
-        .body(
-            userJoinResponse
-        );
+        .body(SuccessStatusResponse.of (SuccessMessage.MEMBER_SING_UP_SUCCESS, userJoinResponse));
+  }
+
+  @PostMapping("/regenerate-token")
+  public ResponseEntity<SuccessStatusResponse> regenerateToken(
+      @RequestHeader(name = "Authorization-refreshToken") String refreshToken
+  ) {
+    return ResponseEntity.ok()
+        .body(SuccessStatusResponse.of(
+            SuccessMessage.ACCESS_TOKEN_REGENERATE_SUCCESS,
+            memberService.getNewAccessToken(refreshToken)));
   }
 
   @GetMapping("/{memberId}")
