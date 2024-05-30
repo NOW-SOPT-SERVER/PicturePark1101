@@ -40,8 +40,6 @@ public class MemberController {
   public ResponseEntity<SuccessStatusResponse> regenerateToken(
       @RequestBody RegenerateAccessTokenRequestDto regenerateAccessTokenRequestDto
   ) {
-    System.out.println("------service-----");
-
     return ResponseEntity.ok()
         .body(SuccessStatusResponse.of(
             SuccessMessage.ACCESS_TOKEN_REGENERATE_SUCCESS,
