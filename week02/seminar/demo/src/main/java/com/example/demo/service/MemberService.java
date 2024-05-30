@@ -9,7 +9,8 @@ import com.example.demo.exception.NotFoundException;
 import com.example.demo.exception.UnauthorizedException;
 import com.example.demo.repository.MemberRepository;
 import com.example.demo.repository.RedisTokenRepository;
-import com.example.demo.service.dto.member.RegenerateAccessTokenDto;
+import com.example.demo.service.dto.member.RegenerateAccessTokenRequestDto;
+import com.example.demo.service.dto.member.RegenerateAccessTokenResponseDto;
 import com.example.demo.service.dto.member.UserJoinResponse;
 import com.example.demo.service.dto.member.MemberCreateDto;
 import com.example.demo.service.dto.member.MemberFindDto;
@@ -49,7 +50,10 @@ public class MemberService {
   }
 
   @Transactional
-  public RegenerateAccessTokenDto getNewAccessToken(String refreshToken) {
+  public RegenerateAccessTokenResponseDto getNewAccessToken(
+      RegenerateAccessTokenRequestDto regenerateAccessTokenRequestDto) {
+
+    String refreshToken = regenerateAccessTokenRequestDto.refreshToken();
 
     // 리프레시 토큰이 redis에 존재하는지 확인하기. 존재하면 만료되지 않은 것임.(일정 시간 후 사라지므로)
     // 없으면 다시 로그인하라는 에러메시지 보내기
@@ -63,7 +67,7 @@ public class MemberService {
         UserAuthentication.createUserAuthentication(token.getId())
     );
 
-    return RegenerateAccessTokenDto.of(accessToken);
+    return RegenerateAccessTokenResponseDto.of(accessToken);
   }
 
   @Transactional(readOnly = true)

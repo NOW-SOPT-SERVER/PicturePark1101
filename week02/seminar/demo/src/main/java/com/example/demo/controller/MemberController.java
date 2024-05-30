@@ -3,7 +3,7 @@ package com.example.demo.controller;
 import com.example.demo.common.dto.SuccessMessage;
 import com.example.demo.common.dto.SuccessStatusResponse;
 import com.example.demo.service.MemberService;
-import com.example.demo.service.dto.member.RegenerateAccessTokenDto;
+import com.example.demo.service.dto.member.RegenerateAccessTokenRequestDto;
 import com.example.demo.service.dto.member.UserJoinResponse;
 import com.example.demo.service.dto.member.MemberCreateDto;
 import com.example.demo.service.dto.member.MemberFindDto;
@@ -38,12 +38,14 @@ public class MemberController {
 
   @PostMapping("/regenerate-token")
   public ResponseEntity<SuccessStatusResponse> regenerateToken(
-      @RequestHeader(name = "Authorization-refreshToken") String refreshToken
+      @RequestBody RegenerateAccessTokenRequestDto regenerateAccessTokenRequestDto
   ) {
+    System.out.println("------service-----");
+
     return ResponseEntity.ok()
         .body(SuccessStatusResponse.of(
             SuccessMessage.ACCESS_TOKEN_REGENERATE_SUCCESS,
-            memberService.getNewAccessToken(refreshToken)));
+            memberService.getNewAccessToken(regenerateAccessTokenRequestDto)));
   }
 
   @GetMapping("/{memberId}")
